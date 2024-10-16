@@ -13,7 +13,7 @@ export const userConfig: Partial<UserConfig> = {
     socialLinks: [
       {
         name: 'github',
-        href: 'https://github.com/GabrielL915https://github.com/GabrielL915',
+        href: 'https://github.com/GabrielL915',
       },
     ],
     navLinks: [

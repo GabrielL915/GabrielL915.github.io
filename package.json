@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "packageManager": "pnpm@9.10.0",
-  "repository": "https://github.com/moeyua/astro-theme-typography",
+  "repository": "https://github.com/GabrielL915/GabrielL915.github.io",
   "scripts": {
     "astro": "astro",
     "build": "astro check && astro build",
