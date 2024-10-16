@@ -55,27 +55,48 @@ export function getPathFromCategory(
 // projectsArray como array de projetos com categorias
 const projectsArray: Project[] = [
   {
-    slug: 'https://github.com/moeyua/astro-theme-typography',
+    slug: 'https://github.com/GabrielL915/auth-api',
     data: {
-      title: 'Project One',
-      categories: ['JavaScript', 'Frontend'],
+      title: 'Auth-api',
+      categories: ['Backend'],
     },
   },
   {
-    slug: 'project-2',
+    slug: 'https://github.com/GabrielL915/ParkingControl',
     data: {
-      title: 'Project Two',
-      categories: ['TypeScript', 'Backend'],
+      title: 'Parking Control',
+      categories: ['Backend'],
     },
   },
   {
-    slug: 'project-3',
+    slug: 'https://github.com/GabrielL915/escola-ti-backend',
     data: {
-      title: 'Project Three',
-      categories: ['JavaScript', 'Fullstack'],
+      title: 'Escola TI Backend',
+      categories: ['Backend'],
     },
   },
-  // Adicione mais projetos conforme necessário
+  {
+    slug: 'https://github.com/GabrielL915/web-search-cli',
+    data: {
+      title: 'Web-search-cli',
+      categories: ['Backend'],
+    },
+  },
+  {
+    slug: 'https://github.com/GabrielL915/myShared',
+    data: {
+      title: 'My Shared',
+      categories: ['FullStack'],
+    },
+  },
+  {
+    slug: 'https://github.com/GabrielL915/git-history',
+    data: {
+      title: 'git-history',
+      categories: ['FullStack'],
+    },
+  },
+
 ]
 
 // Função para retornar projetos
