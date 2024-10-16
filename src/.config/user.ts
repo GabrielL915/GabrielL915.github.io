@@ -19,23 +19,23 @@ export const userConfig: Partial<UserConfig> = {
     navLinks: [
       {
         name: 'Posts',
-        href: '/',
+        href: '/GabrielL915.github.io',
       },
       {
         name: 'Archive',
-        href: '/archive',
+        href: '/GabrielL915.github.io/archive',
       },
       {
         name: 'Categories',
-        href: '/categories',
+        href: '/GabrielL915.github.io/categories',
       },
       {
         name: 'About',
-        href: '/about',
+        href: '/GabrielL915.github.io/about',
       },
       {
         name: 'Projects',
-        href: '/projects',
+        href: '/GabrielL915.github.io/projects',
       },
     ],
     footer: [
