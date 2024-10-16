@@ -107,3 +107,11 @@ interface Giscus {
   lang: AvailableLanguage
   loading: Loading
 }
+
+export interface Project {
+  slug: string
+  data: {
+    title: string
+    categories: string[]
+  }
+}

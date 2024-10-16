@@ -1,0 +1,44 @@
+---
+import { themeConfig } from '~/.config'
+import LayoutDefault from '~/layouts/LayoutDefault.astro'
+import type { Project } from '~/types'
+import { formatDate, getProjectCategories, getPathFromCategory } from '~/utils'
+
+export async function getStaticPaths() {
+  const categoryMap = await getProjectCategories()
+  return Array.from(categoryMap).map(([key, value]) => {
+    const path = getPathFromCategory(key, themeConfig.site.categoryMap)
+    return {
+      params: { category: path },
+      props: { projects: value, name: key },
+    }
+  })
+}
+
+const { projects, name } = Astro.props
+
+function getListItems(projects: Project[]) {
+  const result = projects.map((project) => ({
+    title: project.data.title,
+    href: `/projects/${project.slug}/`,
+  }))
+  return result
+}
+---
+
+<LayoutDefault>
+  <section>
+    <h2 class="post-title"># {name}</h2>
+    <ul class="pl-6 py-3" flex="~ col gap-4">
+      {
+        getListItems(projects).map(({ title, href }) => (
+          <li>
+            <h3 class="post-title">
+              <a href={href}>{title}</a>
+            </h3>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</LayoutDefault>

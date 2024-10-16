@@ -4,18 +4,52 @@ import { themeConfig } from '~/.config'
 const { title, subtitle } = themeConfig.site
 ---
 
-<hgroup
-  lg="write-vertical-right items-start b-l-2px b-l-primary-solid text-left"
-  flex="~ col gap-2.5"
-  class="cursor-pointer text-center duration-800 ease-in-out"
->
-  <a
-    class="not-underline-hover duration-800 ease-in-out"
-    lg:p="x-2.5 b-12 hover:(t-3.75 b-8.75)"
-    hover:lg=" bg-primary color-background"
-    href="/"
-  >
+<hgroup class="cursor-pointer text-center duration-800 ease-in-out vertical-layout">
+  <a class="not-underline-hover duration-800 ease-in-out" href="/">
     <h3 class="text-5 font-extrabold font-header">{subtitle}</h3>
-    <h1 class="text-8 font-extrabold font-header">{title}</h1>
+    <h1 class="text-8 font-extrabold font-header vertical-text">Gabriel</h1>
   </a>
 </hgroup>
+
+<style>
+  @media (min-width: 1024px) {
+    .vertical-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-left: 2px solid #fff;
+      padding-left: 10px;
+    }
+
+    .vertical-text {
+      display: inline-block;
+    }
+    .vertical-text span {
+      display: block;
+      letter-spacing: 1rem;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .vertical-layout {
+      display: flex;
+      justify-content: center;
+      border: none;
+    }
+
+    .vertical-text {
+      display: inline-block;
+      text-align: center;
+    }
+  }
+</style>
+
+<script>
+  const title = document.querySelector('.vertical-text')
+  if (title && title.textContent) {
+    title.innerHTML = title.textContent
+      .split('')
+      .map((letter) => `<span>${letter}</span>`)
+      .join('')
+  }
+</script>

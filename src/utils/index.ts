@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content'
 import dayjs from 'dayjs'
 import MarkdownIt from 'markdown-it'
 import sanitizeHtml from 'sanitize-html'
-import type { Post } from '~/types'
+import type { Post, Project } from '~/types'
 
 export async function getCategories() {
   const posts = await getPosts()
@@ -50,4 +50,53 @@ export function getPathFromCategory(
 ) {
   const mappingPath = category_map.find(l => l.name === category)
   return mappingPath ? mappingPath.path : category
+}
+
+// projectsArray como array de projetos com categorias
+const projectsArray: Project[] = [
+  {
+    slug: 'https://github.com/moeyua/astro-theme-typography',
+    data: {
+      title: 'Project One',
+      categories: ['JavaScript', 'Frontend'],
+    },
+  },
+  {
+    slug: 'project-2',
+    data: {
+      title: 'Project Two',
+      categories: ['TypeScript', 'Backend'],
+    },
+  },
+  {
+    slug: 'project-3',
+    data: {
+      title: 'Project Three',
+      categories: ['JavaScript', 'Fullstack'],
+    },
+  },
+  // Adicione mais projetos conforme necessário
+]
+
+// Função para retornar projetos
+export async function getProjects(): Promise<Project[]> {
+  return projectsArray
+}
+
+// Função para mapear projetos em categorias
+export async function getProjectCategories() {
+  const projects = await getProjects()
+  const categories = new Map<string, Project[]>()
+
+  for (const project of projects) {
+    if (project.data.categories) {
+      for (const c of project.data.categories) {
+        const projects = categories.get(c) || []
+        projects.push(project)
+        categories.set(c, projects)
+      }
+    }
+  }
+
+  return categories
 }
