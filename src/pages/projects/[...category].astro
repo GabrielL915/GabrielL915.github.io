@@ -2,7 +2,7 @@
 import { themeConfig } from '~/.config'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
 import type { Project } from '~/types'
-import { formatDate, getProjectCategories, getPathFromCategory } from '~/utils'
+import { getProjectCategories, getPathFromCategory } from '~/utils'
 
 export async function getStaticPaths() {
   const categoryMap = await getProjectCategories()
