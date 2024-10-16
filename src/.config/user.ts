@@ -5,14 +5,15 @@ export const userConfig: Partial<UserConfig> = {
   // site: { title: "講評世界" },
   // seo: { twitter: "@moeyua13" },
   site: {
-    title: 'Gabriel',
-    subtitle: 'Portifolio Blog',
+    title: 'Gabriel Luiz',
+    subtitle: 'Portifolio',
     author: 'GabrielL915',
     description: 'A portifolio',
+    website: 'https://gabriell915.github.io',
     socialLinks: [
       {
         name: 'github',
-        href: '',
+        href: 'https://github.com/GabrielL915https://github.com/GabrielL915',
       },
     ],
     navLinks: [
@@ -39,7 +40,7 @@ export const userConfig: Partial<UserConfig> = {
     ],
     footer: [
       '© %year <a target="_blank" href="%website">%author</a>',
-      '<a target="_blank" href="https://github.com/Moeyua/astro-theme-typography">GitHub Repository</a>',
+      '<a target="_blank" href="https://github.com/GabrielL915/GabrielL915.github.io">GitHub Repository</a>',
     ],
   },
   appearance: {
