@@ -6,6 +6,7 @@
     "paths": {
       "~/*": ["src/*"]
     },
+    "types": ["astro/client"],
     "esModuleInterop": true
   },
   "include": [
