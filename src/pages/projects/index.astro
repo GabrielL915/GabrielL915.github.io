@@ -33,19 +33,23 @@ const list = getListFromMap(categoryMap)
 ---
 
 <LayoutDefault>
-  <section>
-    <h2 class="post-title">{t('Project Categories')}</h2>
-    <ul class="pl-6" flex="~ col gap-4">
+  <section class="project-category-section">
+    <h2 class="category-title">{t('Project Categories')}</h2>
+    <ul class="category-list pl-6" flex="~ col gap-4">
       {
         list.map(({ title, href, projects }) => (
-          <li>
-            <h3 class="post-title">
-              <a href={href}># {title}</a>
+          <li class="category-item">
+            <h3 class="category-name">
+              <a href={href} class="hover:text-primary transition-all">
+                # {title}
+              </a>
             </h3>
-            <ul>
+            <ul class="project-sublist">
               {projects.map((project) => (
-                <li>
-                  <a href={`${project.slug}/`}>{project.data.title}</a>
+                <li class="project-subitem">
+                  <a href={`${project.slug}/`} class="hover:underline hover:text-primary transition-all">
+                    {project.data.title}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -55,3 +59,34 @@ const list = getListFromMap(categoryMap)
     </ul>
   </section>
 </LayoutDefault>
+
+<style>
+  .project-category-section {
+    padding: 2rem;
+    background-color: var(--color-background-alt);
+    border-radius: 8px;
+  }
+
+  .category-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .category-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .category-name a {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+  }
+
+  .project-sublist {
+    margin-left: 1rem;
+    list-style-type: none;
+  }
+
+  .project-subitem {
+    margin-top: 0.5rem;
+  }
+</style>

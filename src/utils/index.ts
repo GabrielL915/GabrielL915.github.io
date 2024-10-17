@@ -86,14 +86,14 @@ const projectsArray: Project[] = [
     slug: 'https://github.com/GabrielL915/myShared',
     data: {
       title: 'My Shared',
-      categories: ['FullStack'],
+      categories: ['FullStack', 'Current Working'],
     },
   },
   {
     slug: 'https://github.com/GabrielL915/git-history',
     data: {
       title: 'git-history',
-      categories: ['FullStack'],
+      categories: ['FullStack', 'Current Working'],
     },
   },
 

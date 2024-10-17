@@ -18,23 +18,24 @@ export async function getStaticPaths() {
 const { projects, name } = Astro.props
 
 function getListItems(projects: Project[]) {
-  const result = projects.map((project) => ({
+  return projects.map((project) => ({
     title: project.data.title,
     href: `/projects/${project.slug}/`,
   }))
-  return result
 }
 ---
 
 <LayoutDefault>
-  <section>
-    <h2 class="post-title"># {name}</h2>
-    <ul class="pl-6 py-3" flex="~ col gap-4">
+  <section class="category-section">
+    <h2 class="category-title"># {name}</h2>
+    <ul class="project-list pl-6 py-3" flex="~ col gap-4">
       {
         getListItems(projects).map(({ title, href }) => (
-          <li>
-            <h3 class="post-title">
-              <a href={href}>{title}</a>
+          <li class="project-item">
+            <h3 class="project-title">
+              <a href={href} class="hover:text-primary transition-all">
+                {title}
+              </a>
             </h3>
           </li>
         ))
@@ -42,3 +43,26 @@ function getListItems(projects: Project[]) {
     </ul>
   </section>
 </LayoutDefault>
+
+<style>
+  .category-section {
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: var(--color-background-alt);
+    border-radius: 8px;
+  }
+
+  .category-title {
+    font-size: 1.75rem;
+    color: var(--color-primary);
+  }
+
+  .project-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .project-title a {
+    color: var(--color-text);
+  }
+</style>
