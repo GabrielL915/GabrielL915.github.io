@@ -1,0 +1,26 @@
+name: Auto Pull Request to Main
+
+on:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Create Pull Request to Main
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.AUTO_PR_TOKEN}}
+          branch: ${{ github.ref_name }} # Branch que foi alterada
+          base: main # Branch de destino
+          title: 'Auto Pull Request - ${{ github.ref_name }}'
+          body: 'Este PR sincroniza a branch `${{ github.ref_name }}` com `main`.'
