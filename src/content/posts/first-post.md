@@ -3,7 +3,7 @@
 title: First post
 pubDate: 2024-10-18
 categories: ["Architecture", "Design Patterns"]
-description: ''
+description: 'first post'
 
 ---
 
