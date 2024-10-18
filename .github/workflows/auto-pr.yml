@@ -31,8 +31,4 @@ jobs:
             automated pr
           assignees: GabrielL915
           reviewers: GabrielL915
-          team-reviewers: |
-            developers
-            qa-team
-          milestone: 1
           draft: false
