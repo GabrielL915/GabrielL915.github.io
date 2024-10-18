@@ -30,5 +30,4 @@ jobs:
             report
             automated pr
           assignees: GabrielL915
-          reviewers: GabrielL915
           draft: false
