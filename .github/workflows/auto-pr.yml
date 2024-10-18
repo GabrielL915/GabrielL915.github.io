@@ -18,7 +18,7 @@ jobs:
           signoff: false
           branch: feat/content # Branch de origem (source branch)
           base: main # Branch de destino (target branch)
-          delete-branch: true
+          delete-branch: false
           title: Pull Request from feature/post to main
           body: |
             Este Pull Request foi criado automaticamente para mesclar feature/post em main.
