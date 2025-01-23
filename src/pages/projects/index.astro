@@ -9,7 +9,8 @@ const categoryMap = await getProjectCategories()
 interface ProjectItem {
   slug: string
   data: {
-    title: string
+    title: string,
+    categories: string[]
   }
 }
 
@@ -20,39 +21,32 @@ interface CategoryListItem {
   size: string
 }
 
-function getListFromMap(map: Map<string, ProjectItem[]>): CategoryListItem[] {
-  return Array.from(map).map(([key, value]) => ({
-    title: key,
-    href: `/project-categories/${getPathFromCategory(key, themeConfig.site.categoryMap)}`,
-    projects: value,
-    size: t('projects_count', value.length),
-  }))
-}
-
-const list = getListFromMap(categoryMap)
+const allProjects: ProjectItem[] = Array.from(categoryMap.values())
+  .flat() // Combina os projetos de todas as categorias
+  .reduce((unique, project) => {
+    // Remove duplicados com base no slug
+    if (!unique.some((item) => item.slug === project.slug)) {
+      unique.push(project);
+    }
+    return unique;
+  }, [] as ProjectItem[]) // Inicializa como uma lista vazia
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
 ---
-
 <LayoutDefault>
   <section class="project-category-section">
-    <h2 class="category-title">{t('Project Categories')}</h2>
+    <h2 class="category-title">{t('Project List')}</h2>
     <ul class="category-list pl-6" flex="~ col gap-4">
       {
-        list.map(({ title, href, projects }) => (
+        allProjects.map(({ slug, data }) => (
           <li class="category-item">
             <h3 class="category-name">
-              <a href={href} class="hover:text-primary transition-all">
-                # {title}
+              <a href={`${slug}/`} class="hover:text-primary transition-all">
+                # {data.title}
               </a>
             </h3>
-            <ul class="project-sublist">
-              {projects.map((project) => (
-                <li class="project-subitem">
-                  <a href={`${project.slug}/`} class="hover:underline hover:text-primary transition-all">
-                    {project.data.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <p class="project-sublist">
+              {data.categories.join(", ")} {/* Exibe categorias ou tecnologias associadas */}
+            </p>
           </li>
         ))
       }
@@ -82,11 +76,8 @@ const list = getListFromMap(categoryMap)
   }
 
   .project-sublist {
+    margin-top: 0.5rem;
     margin-left: 1rem;
     list-style-type: none;
-  }
-
-  .project-subitem {
-    margin-top: 0.5rem;
   }
 </style>
