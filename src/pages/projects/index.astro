@@ -1,83 +1,183 @@
 ---
-import { themeConfig } from '~/.config'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
-import { getProjectCategories, getPathFromCategory } from '~/utils/index'
+import {getProjectCategories} from '../../utils'
 
-const { translate: t } = Astro.locals
+const {translate: t} = Astro.locals
 const categoryMap = await getProjectCategories()
 
 interface ProjectItem {
-  slug: string
-  data: {
-    title: string,
-    categories: string[]
-  }
-}
-
-interface CategoryListItem {
-  title: string
-  href: string
-  projects: ProjectItem[]
-  size: string
+    slug: string
+    data: {
+        title: string,
+        categories: string[]
+    }
 }
 
 const allProjects: ProjectItem[] = Array.from(categoryMap.values())
-  .flat() // Combina os projetos de todas as categorias
-  .reduce((unique, project) => {
-    // Remove duplicados com base no slug
-    if (!unique.some((item) => item.slug === project.slug)) {
-      unique.push(project);
+    .flat() // Combina os projetos de todas as categorias
+    .reduce((unique, project) => {
+        // Remove duplicados com base no slug
+        if (!unique.some((item) => item.slug === project.slug)) {
+            unique.push(project);
+        }
+        return unique;
+    }, [] as ProjectItem[]) // Inicializa como uma lista vazia
+    .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+function getTechLogo(categories: string[]): string {
+    const techMap: Record<string, string> = {
+        "Typescript": "https://xs1m85xgda.ufs.sh/f/0dxljaHKrDlYai9JNKOjUKPuc2X64weqjIonbYyREHlaGg9M",
+        "Nestjs": "https://xs1m85xgda.ufs.sh/f/0dxljaHKrDlYqIygf1lCBy42oxhIWQR3ki8cSYKvE90mfTGH",
+        "Java": "https://xs1m85xgda.ufs.sh/f/0dxljaHKrDlYjxub1y2J4wcY2AVdzOubav6k07eqgiBT3npC",
+        "Spring": "https://xs1m85xgda.ufs.sh/f/0dxljaHKrDlYr3QRypugOKyu1is7jEwtXYRGbeChfpUcmQrV",
+        "Nextjs": "https://xs1m85xgda.ufs.sh/f/0dxljaHKrDlYb9vHNJPB7IglAHL4rxTZ3UiQocVD5fsvpkbR",
+        "Go": "https://xs1m85xgda.ufs.sh/f/0dxljaHKrDlYiC2u33RK3QLOYEP9D4pFgAJWZ0GnbzkRcXyB",
+        "Backend": "", // Default for backend
+        "Fullstack": "", // Default for fullstack
+    };
+
+    // Find the first matching technology
+    for (const category of categories) {
+        if (techMap[category]) {
+            return techMap[category];
+        }
     }
-    return unique;
-  }, [] as ProjectItem[]) // Inicializa como uma lista vazia
-  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+    // Default logo if no match
+    return "/placeholder.png";
+}
 ---
 <LayoutDefault>
-  <section class="project-category-section">
-    <h2 class="category-title">{t('Project List')}</h2>
-    <ul class="category-list pl-6" flex="~ col gap-4">
-      {
-        allProjects.map(({ slug, data }) => (
-          <li class="category-item">
-            <h3 class="category-name">
-              <a href={`${slug}/`} class="hover:text-primary transition-all">
-                # {data.title}
-              </a>
-            </h3>
-            <p class="project-sublist">
-              {data.categories.join(", ")} {/* Exibe categorias ou tecnologias associadas */}
-            </p>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+    <section class="project-category-section">
+        <h2 class="category-title">{t('Project List')}</h2>
+        <ul class="category-list pl-6" flex="~ col gap-4">
+            {
+                allProjects.map(({slug, data}) => (
+                        <li class="category-item">
+                            <div class="logo-background">
+                                <img
+                                        src={getTechLogo(data.categories) || "/placeholder.svg"}
+                                        alt={`${data.title} logo`}
+                                        width="128"
+                                        height="128"
+                                        class="tech-logo"
+                                />
+                            </div>
+                            <div class="project-content">
+                                <h3 class="category-name">
+                                    <a href={`${slug}/`} class="project-link">
+                                        <span class="hash">#</span> {data.title}
+                                    </a>
+                                </h3>
+                                <div class="tech-tags">
+                                    {data.categories.map((category) => (
+                                            <span class="tech-tag">{category}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        </li>
+                ))
+            }
+        </ul>
+    </section>
 </LayoutDefault>
 
 <style>
-  .project-category-section {
-    padding: 2rem;
-    background-color: var(--color-background-alt);
-    border-radius: 8px;
-  }
+    /* Keep your existing section styling */
+    .project-category-section {
+        padding: 2rem;
+        border-radius: 8px;
+    }
 
-  .category-title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
+    .category-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
 
-  .category-item {
-    margin-bottom: 1.5rem;
-  }
+    /* Project item styling */
+    .category-item {
+        position: relative;
+        margin-bottom: 1.5rem;
+        padding: 1.25rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        transition: all 0.3s;
+        min-height: 160px;
+    }
 
-  .category-name a {
-    font-size: 1.5rem;
-    color: var(--color-primary);
-  }
+    .category-item:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 12px var(--uno-colors-shadow);
+    }
 
-  .project-sublist {
-    margin-top: 0.5rem;
-    margin-left: 1rem;
-    list-style-type: none;
-  }
+    /* Logo background */
+    .logo-background {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+
+    .tech-logo {
+        width: 8rem;
+        height: 8rem;
+        object-fit: contain;
+        filter: grayscale(100%);
+        opacity: 0.12;
+    }
+
+    /* Project content */
+    .project-content {
+        position: relative;
+        z-index: 10;
+    }
+
+    .category-name {
+        margin-bottom: 0.75rem;
+    }
+
+    .hash {
+        color: var(--uno-colors-primary, #888);
+        margin-right: 0.5rem;
+    }
+
+    /* Keep your existing link styling */
+    .project-link {
+        font-size: 1.5rem;
+        color: var(--uno-colors-primary);
+        transition: all 0.3s;
+        text-decoration: none;
+    }
+
+    .project-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Tech tags */
+    .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+    }
+
+    .tech-tag {
+        padding: 0.25rem 0.625rem;
+        font-size: 0.875rem;
+        border-radius: 0.375rem;
+        background-color: var(--uno-colors-background);
+        color: #666;
+        transition: background-color 0.2s;
+    }
+
+    .tech-tag:hover {
+        background-color: #eaeaea;
+    }
+
+    /* Remove the old project-sublist styling */
+    .project-sublist {
+        display: none;
+    }
 </style>
