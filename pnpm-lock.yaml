@@ -64,8 +64,8 @@ importers:
         specifier: ^0.62.4
         version: 0.62.4(eslint@9.25.1(jiti@2.4.2))(typescript@5.7.3)
       '@unocss/preset-attributify':
-        specifier: ^0.62.4
-        version: 0.62.4
+        specifier: ^66.1.3
+        version: 66.1.3
       '@unocss/reset':
         specifier: ^0.62.4
         version: 0.62.4
@@ -119,7 +119,7 @@ importers:
         version: 0.62.4(postcss@8.5.3)(rollup@2.79.2)(vite@5.4.14(@types/node@22.13.15)(terser@5.39.0))
       unocss-preset-theme:
         specifier: ^0.13.0
-        version: 0.13.0(@unocss/core@0.62.4)
+        version: 0.13.0(@unocss/core@66.1.3)
 
 packages:
 
@@ -404,6 +404,11 @@ packages:
 
   '@babel/parser@7.27.1':
     resolution: {integrity: sha512-I0dZ3ZpCrJ1c04OqlNsQcKiZlsrXf/kkE4FXzID9rIOYICsAbA8mMDzhW/luRNAHdCNt7os/u8wenklZDlUVUQ==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+
+  '@babel/parser@7.27.4':
+    resolution: {integrity: sha512-BRmLHGwpUqLFR2jzx9orBuX/ABDkj2jLKOXrHDTN2aOKL+jFDDKaRNo9nyYsIl9h/UE/7lMKdDjKQQyxKKDZ7g==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -875,6 +880,10 @@ packages:
 
   '@babel/types@7.27.1':
     resolution: {integrity: sha512-+EzkxvLNfiUeKMgy/3luqfsCWFRXLb7U6wNQTk60tovuckwB15B191tJWvpp4HjiQWdJkCxO3Wbvc6jlk3Xb2Q==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/types@7.27.3':
+    resolution: {integrity: sha512-Y1GkI4ktrtvmawoSq+4FCVHNryea6uR+qUQy0AGxLSsjCX0nVmkYQMBLHDkXZuo5hGx7eYdnIaslsdBFm7zbUw==}
     engines: {node: '>=6.9.0'}
 
   '@clack/core@0.4.2':
@@ -2095,6 +2104,9 @@ packages:
   '@unocss/core@0.62.4':
     resolution: {integrity: sha512-Cc+Vo6XlaQpyVejkJrrzzWtiK9pgMWzVVBpm9VCVtwZPUjD4GSc+g7VQCPXSsr7m03tmSuRySJx72QcASmauNQ==}
 
+  '@unocss/core@66.1.3':
+    resolution: {integrity: sha512-qV88JvRvSMgMo1FMWZfNiKYy+IvaXswyMMyZvuQxCrNkDPtij46pu7G3heKdLl7mNTdSgF0+LQPEqVYVA27pCA==}
+
   '@unocss/eslint-plugin@0.62.4':
     resolution: {integrity: sha512-L4pm8L96OvE99FK+fZHQBXxsu+B/yvhf471Mf5o3idaq+pzptfpZcKKRXCeQKSAYbC80IV4Fm1V5dFxOHbDdPg==}
     engines: {node: '>=14'}
@@ -2113,6 +2125,9 @@ packages:
 
   '@unocss/preset-attributify@0.62.4':
     resolution: {integrity: sha512-ei5nNT58GON9iyCGRRiIrphzyQbBIZ9iEqSBhIY0flcfi1uAPUXV32aO2slqJnWWAIwbRSb1GMpwYR8mmfuz8g==}
+
+  '@unocss/preset-attributify@66.1.3':
+    resolution: {integrity: sha512-geEaGxs7j85P1HirbAlIRnCrJwxjvvbUQDC2TOXUZ67So1co2mac/3uo0QMJsdry14iSIIfu6rNVaDjMSC4K5g==}
 
   '@unocss/preset-icons@0.62.4':
     resolution: {integrity: sha512-n9m2nRTxyiw0sqOwSioO3rro0kaPW0JJzWlzcfdwQ+ZORNR5WyJL298fLXYUFbZG3EOF+zSPg6CMDWudKk/tlA==}
@@ -6409,6 +6424,10 @@ snapshots:
     dependencies:
       '@babel/types': 7.27.1
 
+  '@babel/parser@7.27.4':
+    dependencies:
+      '@babel/types': 7.27.3
+
   '@babel/plugin-bugfix-firefox-class-in-computed-class-key@7.27.1(@babel/core@7.27.1)':
     dependencies:
       '@babel/core': 7.27.1
@@ -7001,6 +7020,11 @@ snapshots:
       '@babel/helper-validator-identifier': 7.25.9
 
   '@babel/types@7.27.1':
+    dependencies:
+      '@babel/helper-string-parser': 7.27.1
+      '@babel/helper-validator-identifier': 7.27.1
+
+  '@babel/types@7.27.3':
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
@@ -8139,6 +8163,8 @@ snapshots:
 
   '@unocss/core@0.62.4': {}
 
+  '@unocss/core@66.1.3': {}
+
   '@unocss/eslint-plugin@0.62.4(eslint@9.25.1(jiti@2.4.2))(typescript@5.7.3)':
     dependencies:
       '@typescript-eslint/utils': 8.26.1(eslint@9.25.1(jiti@2.4.2))(typescript@5.7.3)
@@ -8176,6 +8202,10 @@ snapshots:
   '@unocss/preset-attributify@0.62.4':
     dependencies:
       '@unocss/core': 0.62.4
+
+  '@unocss/preset-attributify@66.1.3':
+    dependencies:
+      '@unocss/core': 66.1.3
 
   '@unocss/preset-icons@0.62.4':
     dependencies:
@@ -8375,7 +8405,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.6':
     dependencies:
-      '@babel/parser': 7.27.1
+      '@babel/parser': 7.27.4
       '@vue/shared': 3.5.6
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -8388,7 +8418,7 @@ snapshots:
 
   '@vue/compiler-sfc@3.5.6':
     dependencies:
-      '@babel/parser': 7.27.1
+      '@babel/parser': 7.27.4
       '@vue/compiler-core': 3.5.6
       '@vue/compiler-dom': 3.5.6
       '@vue/compiler-ssr': 3.5.6
@@ -12692,9 +12722,9 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unocss-preset-theme@0.13.0(@unocss/core@0.62.4):
+  unocss-preset-theme@0.13.0(@unocss/core@66.1.3):
     dependencies:
-      '@unocss/core': 0.62.4
+      '@unocss/core': 66.1.3
       '@unocss/rule-utils': 0.61.9
 
   unocss@0.62.4(postcss@8.5.3)(rollup@2.79.2)(vite@5.4.14(@types/node@22.13.15)(terser@5.39.0)):
