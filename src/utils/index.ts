@@ -90,20 +90,40 @@ const projectsArray: Project[] = [
     },
   },
   {
-    slug: 'https://github.com/GabrielL915/VisionUML',
-    data: {
-      title: 'VisionUML',
-      categories: ['Frontend', 'Typescript'],
-    },
-  },
-  {
     slug: 'https://github.com/GabrielL915/meal-planner',
     data: {
       title: 'Meal Planner',
       categories: ['Fullstack', 'Typescript', 'Nextjs', 'React', 'DrizzleORM', 'PostgresSQL'],
     },
   },
-
+  {
+    slug: 'https://github.com/GabrielL915/rinha-backend-2025-hono',
+    data: {
+      title: 'Rinha backend 2025',
+      categories: ['Backend', 'Typescript', 'Hono', 'Bun', 'Redis', 'Bullmq', 'Nginx', 'Docker'],
+    },
+  },
+  {
+    slug: 'https://github.com/GabrielL915/Tabela-hash',
+    data: {
+      title: 'Tabela Hash',
+      categories: ['C++'],
+    },
+  },
+  {
+    slug: 'https://github.com/GabrielL915/Fin',
+    data: {
+      title: 'Fin',
+      categories: ['Go', 'TUI'],
+    },
+  },
+  {
+    slug: 'https://github.com/GabrielL915/my-task-timer',
+    data: {
+      title: 'Task-Timer',
+      categories: ['Nx', 'Fullstack', 'Angular', 'Nestjs', 'Typescript', 'PostgreSQL', 'Redis', 'Clean Architecture', 'Layered Architecture'],
+    },
+  },
 ]
 
 // Função para retornar projetos
