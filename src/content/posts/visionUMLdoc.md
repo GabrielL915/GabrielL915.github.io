@@ -4,10 +4,11 @@ title: VisionUML documentation
 pubDate: 2025-01-23
 categories: ["Documentation"]
 description: 'documentação-pt-br'
-  
+
 ---
 
 ---
+
 ### Controle versão
 
 | Versão | Data     | Notas               |
@@ -87,6 +88,7 @@ description: 'documentação-pt-br'
 - Lento em diagramas grandes
 
 - Exportação de diagramas grande também não é boa
+
 ---
 
 | **Critério**                              | **Astah**                     | **Draw.io (diagrams.net)** | **Lucidchart** |

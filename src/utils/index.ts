@@ -1,8 +1,8 @@
+import type { Post, Project } from '~/types'
 import { getCollection } from 'astro:content'
 import dayjs from 'dayjs'
 import MarkdownIt from 'markdown-it'
 import sanitizeHtml from 'sanitize-html'
-import type { Post, Project } from '~/types'
 
 export async function getCategories() {
   const posts = await getPosts()
@@ -58,49 +58,49 @@ const projectsArray: Project[] = [
     slug: 'https://github.com/GabrielL915/auth-api',
     data: {
       title: 'Auth-api',
-      categories: ['Backend', "Typescript", "Nestjs", "Knex", "PostgresSQL", "Docker", "JWT", "Clean Architecture", "Layered Architecture"],
+      categories: ['Backend', 'Typescript', 'Nestjs', 'Knex', 'PostgresSQL', 'Docker', 'JWT', 'Clean Architecture', 'Layered Architecture'],
     },
   },
   {
     slug: 'https://github.com/GabrielL915/ParkingControl',
     data: {
       title: 'Parking Control',
-      categories: ['Backend', "Java", "Spring", "H2", "Junit", "Mockito", "Swagger"],
+      categories: ['Backend', 'Java', 'Spring', 'H2', 'Junit', 'Mockito', 'Swagger'],
     },
   },
   {
     slug: 'https://github.com/GabrielL915/escola-ti-backend',
     data: {
       title: 'Escola TI Backend',
-      categories: ['Backend', "Typescript", "Nestjs", "PostgresSQL", "Knex", "Jest", "SuperTest", "Swagger"],
+      categories: ['Backend', 'Typescript', 'Nestjs', 'PostgresSQL', 'Knex', 'Jest', 'SuperTest', 'Swagger'],
     },
   },
   {
     slug: 'https://github.com/GabrielL915/web-search-cli',
     data: {
       title: 'Web-search-cli',
-      categories: ['Backend', "Go"],
+      categories: ['Backend', 'Go'],
     },
   },
   {
     slug: 'https://github.com/GabrielL915/backup-system',
     data: {
       title: 'Backup System',
-      categories: ['Backend', "Java"],
+      categories: ['Backend', 'Java'],
     },
   },
   {
     slug: 'https://github.com/GabrielL915/VisionUML',
     data: {
       title: 'VisionUML',
-      categories: ['Frontend', "Typescript"],
+      categories: ['Frontend', 'Typescript'],
     },
   },
   {
     slug: 'https://github.com/GabrielL915/meal-planner',
     data: {
       title: 'Meal Planner',
-      categories: ['Fullstack', 'Typescript', "Nextjs", "React", "DrizzleORM", "PostgresSQL"],
+      categories: ['Fullstack', 'Typescript', 'Nextjs', 'React', 'DrizzleORM', 'PostgresSQL'],
     },
   },
 
