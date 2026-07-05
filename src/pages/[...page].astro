@@ -19,7 +19,6 @@ const { page } = Astro.props
 ---
 
 <LayoutDefault>
-  <span class="vertical-label" aria-hidden="true">posts</span>
   <section contain-layout class="flex flex-col">
     {
       page.data.map((post) => (
@@ -54,22 +53,3 @@ const { page } = Astro.props
     totalPage={page.lastPage}
   />
 </LayoutDefault>
-
-<style>
-  .vertical-label {
-    position: fixed;
-    top: 104px;
-    right: 26px;
-    writing-mode: vertical-rl;
-    font-size: 14px;
-    letter-spacing: 6px;
-    color: var(--faint);
-    pointer-events: none;
-  }
-
-  @media (max-width: 1100px) {
-    .vertical-label {
-      display: none;
-    }
-  }
-</style>
