@@ -5,6 +5,7 @@ import SiteNavigation from '~/components/SiteNavigation.astro'
 import SiteTitle from '~/components/SiteTitle.astro'
 import SiteSeo from '~/components/SiteSeo.astro'
 import Analytics from '~/components/Analytics.astro'
+import PixelDuck from '~/components/PixelDuck.astro'
 import '~/styles/global.css'
 
 const lang = themeConfig.appearance.locale ?? 'en-us'
@@ -33,6 +34,8 @@ const dark = defaultTheme === 'dark'
       <SiteTitle />
       <SiteNavigation />
     </header>
+
+    <PixelDuck />
 
     <main class="transition-swup-main outline-none flex-1 flex flex-col" p="y-10">
       <slot />
