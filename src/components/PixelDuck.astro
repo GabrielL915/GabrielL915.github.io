@@ -1,6 +1,6 @@
 ---
 // A pixel-art duck drawn entirely with CSS box-shadow "pixels" (3px each).
-// It sits on top of the vertical page label (fixed at top: 104px, right: 26px)
+// It sits on top of the vertical page label (absolute at top: 104px, left: 100% + 28px)
 // and, because it lives outside the swup `main` container, it survives
 // client-side page transitions without restarting its animation.
 ---
@@ -14,9 +14,11 @@
     --s: #d99e2b; /* wing / shade */
     --o: #e07a2e; /* beak */
     --k: #2b2b2b; /* eye */
-    position: fixed;
-    top: 74px; /* bottom of duck (30px tall) rests at 104px, where the label starts */
-    right: 12px;
+    /* anchored to the content edge, same as .vertical-label (top: 104px, left: 100% + 28px) */
+    position: absolute;
+    top: 76px; /* duck is 30px tall; its bottom rests right on the label's first letter */
+    left: 100%;
+    margin-left: 19px; /* centers the duck's belly over the ~20px-wide letter column */
     width: var(--px);
     height: var(--px);
     pointer-events: none;
@@ -137,7 +139,7 @@
     }
   }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1023px) {
     .pixel-duck {
       display: none; /* the vertical label it sits on is hidden here too */
     }
