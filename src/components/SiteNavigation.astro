@@ -3,29 +3,76 @@ import { themeConfig } from '~/.config'
 
 const { navLinks, socialLinks } = themeConfig.site
 const { translate: t } = Astro.locals
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/'
+
+function isActive(href: string) {
+  const link = href.replace(/\/$/, '') || '/'
+  if (link === '/') return pathname === '/' || /^\/\d+$/.test(pathname) || pathname.startsWith('/posts')
+  return pathname === link || pathname.startsWith(`${link}/`)
+}
+
+const github = socialLinks.find(({ name }) => name === 'github')
 ---
 
-<nav class="text-center font-bold" flex="~ col gap-4">
-  <ul lg="flex-col items-start text-4" class="text-3.5" flex="~ row gap-2 justify-center">
-    {
-      navLinks.map((nav) => (
-        <li>
-          <a class="" href={nav.href}>
-            {t(nav.name)}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-  <ul flex="~ row gap-1 justify-center">
-    {
-      socialLinks.map(({ href, name }) => (
-        <li>
-          <a href={href} target="_blank" title={name} class="not-underline-hover inline-flex items-center">
-            <span class:list={[`i-mdi-${name}`, 'w-6 h-6']}>{name}</span>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+<nav class="flex items-center flex-wrap gap-x-7 gap-y-2 text-4.5">
+  {
+    navLinks.map((nav) => (
+      <a class:list={['nav-link not-underline-hover', { active: isActive(nav.href) }]} href={nav.href}>
+        {t(nav.name)}
+      </a>
+    ))
+  }
+  {
+    github && (
+      <a class="nav-link not-underline-hover text-4" href={github.href} target="_blank">
+        github ↗
+      </a>
+    )
+  }
+  <button class="theme-toggle" data-theme-toggle type="button" title="Toggle theme" aria-label="Toggle theme"></button>
 </nav>
+
+<style>
+  .nav-link {
+    color: var(--nav-muted);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    padding-bottom: 1px;
+    border-bottom: 3px solid transparent;
+  }
+
+  .nav-link:hover {
+    color: var(--ink);
+    opacity: 1;
+  }
+
+  .nav-link.active {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--ink);
+    font-size: 20px;
+    line-height: 1;
+    font-family: inherit;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .theme-toggle:hover {
+    opacity: 0.6;
+  }
+
+  .theme-toggle::before {
+    content: '◐';
+  }
+
+  :global(html.dark) .theme-toggle::before {
+    content: '◑';
+  }
+</style>

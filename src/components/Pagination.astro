@@ -28,30 +28,62 @@ const {
 } = Astro.props
 ---
 
-<footer class="mt-5">
+<footer class="pagination">
   {
     showPageCount && (
-      <div class="mb-2.5">
+      <div class="page-count">
         {t('page_number', currentPage)} / {t('page_count', totalPage)}
       </div>
     )
   }
-  <div class="flex items-center gap-2">
+  <div class="flex items-center justify-between gap-4 w-full">
     {
       showLeft && (
-        <a title={leftTitle} href={leftUrl}>
-          <span class="inline-block vertical-mid i-mdi-chevron-double-left w-4 h-4" />
-          {leftTitle}
+        <a class="pagination-link not-underline-hover" title={leftTitle} href={leftUrl}>
+          ← {leftTitle}
         </a>
       )
     }
+    <span class="flex-1"></span>
     {
       showRight && (
-        <a title={rightTitle} href={rightUrl}>
-          {rightTitle}
-          <span class="inline-block vertical-mid i-mdi-chevron-double-right w-4 h-4" />
+        <a class="pagination-link not-underline-hover" title={rightTitle} href={rightUrl}>
+          {rightTitle} →
         </a>
       )
     }
   </div>
 </footer>
+
+<style>
+  .pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    border-top: 1.5px solid var(--line);
+    padding-top: 22px;
+    margin-top: auto;
+  }
+
+  .page-count {
+    font-size: 17px;
+    color: var(--faint);
+  }
+
+  .pagination-link {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 16px;
+    max-width: 45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .pagination-link:hover {
+    color: var(--ink);
+    opacity: 1;
+  }
+</style>

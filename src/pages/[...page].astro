@@ -2,9 +2,9 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 import { themeConfig } from '~/.config'
 import Pagination from '~/components/Pagination.astro'
+import PostCategory from '~/components/PostCategory.astro'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
-import LayoutPost from '~/layouts/LayoutPost.astro'
-import { getPostDescription, getPosts } from '~/utils'
+import { formatDate, getPostDescription, getPosts } from '~/utils'
 
 const { translate: t } = Astro.locals
 
@@ -19,12 +19,27 @@ const { page } = Astro.props
 ---
 
 <LayoutDefault>
-  <section contain-layout flex="~ col gap-7.5">
+  <span class="vertical-label" aria-hidden="true">posts</span>
+  <section contain-layout class="flex flex-col">
     {
       page.data.map((post) => (
-        <LayoutPost post={post}>
-          <p class="line-clamp-4">{getPostDescription(post)}</p>
-        </LayoutPost>
+        <article class="post-item">
+          <div class="post-item-head">
+            <a
+              class="post-item-title not-underline-hover hover:op-60 transition-opacity duration-300"
+              href={`/posts/${post.slug}/`}
+            >
+              {post.data.title}
+            </a>
+            <time class="post-item-date">{formatDate(post.data.pubDate)}</time>
+          </div>
+          <p class="post-item-desc line-clamp-4">{getPostDescription(post)}</p>
+          <div class="flex gap-2 flex-wrap">
+            {(post.data.categories ?? []).map((category) => (
+              <PostCategory category={category} />
+            ))}
+          </div>
+        </article>
       ))
     }
   </section>
@@ -39,3 +54,22 @@ const { page } = Astro.props
     totalPage={page.lastPage}
   />
 </LayoutDefault>
+
+<style>
+  .vertical-label {
+    position: fixed;
+    top: 104px;
+    right: 26px;
+    writing-mode: vertical-rl;
+    font-size: 14px;
+    letter-spacing: 6px;
+    color: var(--faint);
+    pointer-events: none;
+  }
+
+  @media (max-width: 1100px) {
+    .vertical-label {
+      display: none;
+    }
+  }
+</style>

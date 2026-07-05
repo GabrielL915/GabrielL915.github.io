@@ -13,10 +13,34 @@ function parseFooter(str: string) {
 }
 ---
 
-{footer.length && footer.map((str) => <p set:html={parseFooter(str)} />)}
+<div class="footer-row">
+  {footer.length && footer.map((str) => <p set:html={parseFooter(str)} />)}
+</div>
 
 <style>
-  p {
-    --at-apply: 'font-bold text-3';
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 16px;
+    color: var(--faint);
+  }
+
+  .footer-row p {
+    margin: 0;
+  }
+
+  .footer-row :global(a) {
+    color: var(--faint);
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--faint);
+    transition: color 0.3s ease-in-out;
+  }
+
+  .footer-row :global(a:hover) {
+    color: var(--ink);
+    opacity: 1;
   }
 </style>
