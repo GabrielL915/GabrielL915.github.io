@@ -8,6 +8,15 @@ import Analytics from '~/components/Analytics.astro'
 import PixelDuck from '~/components/PixelDuck.astro'
 import '~/styles/global.css'
 
+interface Props {
+  sideLabel?: string
+}
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/'
+const isPosts = pathname === '/' || /^\/\d+$/.test(pathname) || pathname.startsWith('/posts')
+const defaultLabel = isPosts ? 'posts' : pathname.split('/')[1]
+
+const { sideLabel = defaultLabel } = Astro.props
 const lang = themeConfig.appearance.locale ?? 'en-us'
 const defaultTheme = themeConfig.appearance.theme
 const dark = defaultTheme === 'dark'
@@ -29,7 +38,8 @@ const dark = defaultTheme === 'dark'
     <Analytics />
   </head>
 
-  <body class="min-h-100vh max-w-860px min-w-320px mx-auto flex flex-col" p="x-6 md:x-16 t-10 b-11">
+  <body class="relative min-h-100vh max-w-860px min-w-320px mx-a flex flex-col" p="x-6 md:x-16 t-10 b-11">
+    <span class="vertical-label" aria-hidden="true">{sideLabel}</span>
     <header class="transition-swup-header flex items-center justify-between gap-x-6 gap-y-4 flex-wrap">
       <SiteTitle />
       <SiteNavigation />
@@ -69,16 +79,81 @@ const dark = defaultTheme === 'dark'
         const isDark = document.documentElement.classList.toggle('dark')
         localStorage.setItem('theme', isDark ? 'dark' : 'light')
       })
+
+      // o swup só troca o <main>; nav ativo e label vertical precisam atualizar via JS
+      function updateActiveNav() {
+        const pathname = location.pathname.replace(/\/$/, '') || '/'
+        const isPosts = pathname === '/' || /^\/\d+$/.test(pathname) || pathname.startsWith('/posts')
+        document.querySelectorAll<HTMLAnchorElement>('header nav a.nav-link:not([target])').forEach((a) => {
+          const link = a.getAttribute('href')?.replace(/\/$/, '') || '/'
+          let active = pathname === link || pathname.startsWith(`${link}/`)
+          if (link === '/') {
+            active = isPosts
+          }
+          a.classList.toggle('active', active)
+        })
+        const label = document.querySelector('.vertical-label')
+        if (label) {
+          label.textContent = isPosts ? 'posts' : pathname.split('/')[1]
+        }
+      }
+
+      // sempre animar as transições de página, mesmo com "reduzir movimento" ativo no SO
+      // (o SwupA11yPlugin v5 passou a respeitar prefers-reduced-motion por padrão)
+      const swupPoll = setInterval(() => {
+        const swup = (window as any).swup
+        if (!swup) {
+          return
+        }
+        const a11y = swup.findPlugin('SwupA11yPlugin') as any
+        if (a11y?.options) {
+          a11y.options.respectReducedMotion = false
+        }
+        swup.hooks.on('page:view', updateActiveNav)
+        clearInterval(swupPoll)
+      }, 200)
     </script>
     <style>
+      /* label vertical logo após a borda direita da área de conteúdo */
+      .vertical-label {
+        position: absolute;
+        top: 104px;
+        left: 100%;
+        margin-left: 28px;
+        writing-mode: vertical-rl;
+        font-size: 20px;
+        letter-spacing: 9px;
+        color: var(--faint);
+        pointer-events: none;
+      }
+
+      @media (max-width: 1023px) {
+        .vertical-label {
+          display: none;
+        }
+      }
+
       /* 页面首次加载动画 */
       html.animation-prepared .transition-swup-header,
       html.animation-prepared .transition-swup-footer {
         animation: fade-in-down 1s linear 1;
+        --at-apply: 'lg-animate-name-fade-in-left';
       }
 
       html.animation-prepared .transition-swup-main {
         animation: fade-in-down 1s linear 1;
+      }
+
+      @keyframes fade-in-left {
+        0% {
+          opacity: 0;
+          transform: translateX(1rem);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
       }
 
       @keyframes fade-in-down {
