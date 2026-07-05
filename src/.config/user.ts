@@ -46,5 +46,17 @@ export const userConfig: Partial<UserConfig> = {
   appearance: {
     theme: 'dark',
     locale: 'en-us',
+    colorsLight: {
+      primary: '#1c1b18',
+      background: '#f4f0e6',
+    },
+    colorsDark: {
+      primary: '#e9e5d8',
+      background: '#121212',
+    },
+    fonts: {
+      header: '"Yuji Syuku", serif',
+      ui: '"Zen Kurenaido", sans-serif',
+    },
   },
 }

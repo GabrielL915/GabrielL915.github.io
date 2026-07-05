@@ -9,7 +9,9 @@ interface Props {
 const { post } = Astro.props
 ---
 
-<article class="prose">
+<article>
   <PostMeta post={post} />
-  <slot />
+  <div class="prose">
+    <slot />
+  </div>
 </article>
