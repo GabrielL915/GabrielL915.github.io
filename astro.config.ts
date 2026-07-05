@@ -29,6 +29,7 @@ export default defineConfig({
       cache: true,
       preload: true,
       accessibility: true,
+      globalInstance: true,
       smoothScrolling: true,
       updateHead: true,
       updateBodyClass: true,
